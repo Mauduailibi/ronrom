@@ -120,6 +120,24 @@ Enquanto o app estiver em modo "Teste" no Google, adicione os e-mails das pessoa
 Também dá para usar a integração **Neon** do marketplace da Vercel, que cria o banco e
 já preenche `DATABASE_URL`.
 
+## Mandar o convite como cartinha 💌
+
+A página `/convite` é uma cartinha: um envelope com selo de gatinho que se abre
+numa carta escrita à mão e termina num vale-presente com o código e o botão
+**Usar meu convite**, que já abre o cadastro com o código preenchido.
+
+1. Crie o código: `pnpm code:new --code MIAU-JULIA --uses 1 --note "Julia"`
+2. Edite o texto da carta no topo de `src/convite.js` (objeto `CARTA`) e faça o push.
+3. Mande o link:
+
+```
+https://ronrom.vercel.app/convite?para=Julia&de=Maurício#MIAU-JULIA
+```
+
+O código vai depois do `#`, então não aparece em logs de servidor nem na prévia
+do WhatsApp (que mostra a imagem `public/og-convite.png`). `para` e `de` são opcionais.
+Se o domínio não for `ronrom.vercel.app`, troque a URL da `og:image` em `convite.html`.
+
 ## Trazer os dados da versão antiga
 
 Se a Julia usou a versão sem login no mesmo domínio, o app oferece

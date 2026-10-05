@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR" data-palette="manteguinha">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tem uma cartinha para você 💌</title>
+<meta name="description" content="Um convite para o Ronrom, um cantinho calmo para organizar a vida.">
+<meta name="robots" content="noindex">
+<!-- Prévia no WhatsApp e no e-mail. Se o domínio não for ronrom.vercel.app, troque aqui. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tem uma cartinha para você 💌">
+<meta property="og:description" content="Abra com calma. Os gatos ajudaram a escrever.">
+<meta property="og:image" content="https://ronrom.vercel.app/og-convite.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="convite">
+<div class="paws-bg" aria-hidden="true"></div>
+
+<!-- 1. Envelope fechado -->
+<section class="stage" id="stage">
+  <p class="to">Tem uma cartinha para você, <span data-para></span></p>
+  <button class="envelope" id="envelope" aria-label="Abrir a cartinha">
+    <span class="env-back"></span>
+    <span class="env-letter"><span></span><span></span><span></span></span>
+    <span class="env-front"></span>
+    <span class="env-flap"></span>
+    <span class="seal" data-brand></span>
+  </button>
+  <p class="tap">toque para abrir</p>
+</section>
+
+<!-- 2. Carta + vale-presente -->
+<main class="reading" id="reading" hidden>
+  <article class="letter">
+    <div class="letter-head"><span>Para <span data-para></span></span><span data-hoje></span></div>
+    <div class="letter-body" id="letter-body"></div>
+    <div class="sign">
+      <p>Com amor,<br><b data-de></b></p>
+      <div class="paw-signs">
+        <span class="ps"><span class="paw-ink" style="color:#5B4033" data-paw></span>Phoebe</span>
+        <span class="ps"><span class="paw-ink" style="color:#7C8186" data-paw></span>Peleguinho</span>
+      </div>
+    </div>
+    <span class="letter-cat" data-cat="siames"></span>
+  </article>
+
+  <section class="gift" aria-label="Vale-presente">
+    <div class="gift-ribbon" aria-hidden="true"></div>
+    <div class="gift-main">
+      <span class="gift-kicker">Vale-presente</span>
+      <h2>Um planner só seu</h2>
+      <p>Válido para criar 1 conta no Ronrom. Sem mensalidade, sem prazo, com gatos inclusos.</p>
+      <div class="code-row">
+        <code id="code">—</code>
+        <button class="copy" id="copy">Copiar</button>
+      </div>
+      <a class="use" id="use" href="/entrar?aba=convite">Usar meu convite</a>
+    </div>
+    <span class="gift-cat" data-cat="cinza"></span>
+  </section>
+
+  <p class="ps-line" id="ps"></p>
+</main>
+
+<script type="module" src="/src/convite.js"></script>
+</body>
+</html>
