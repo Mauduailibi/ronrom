@@ -10,7 +10,7 @@ import { I } from './shared/icons.js';
    ========================================================= */
 const CARTA = {
   para: 'Julia',
-  de: 'Maurício',
+  de: 'Mauricio',
   paragrafos: [
     'Fiz um cantinho só seu para organizar a vida: a pesquisa do FORWARD, as aulas, a contagem regressiva para o intercâmbio, os hábitos e, claro, os gatos.',
     'Ele se chama Ronrom, porque tudo fica mais leve com um ronronar por perto. Tem tema da Phoebe, do Peleguinho e um em homenagem ao Manteguinha, do jeitinho que ele merecia.',
