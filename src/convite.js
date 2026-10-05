@@ -12,7 +12,7 @@ const CARTA = {
   para: 'Julia',
   de: 'Mauricio',
   paragrafos: [
-    'Fiz um cantinho só seu para organizar a vida: a pesquisa do FORWARD, as aulas, a contagem regressiva para o intercâmbio, os hábitos e, claro, os gatos.',
+    'Fiz um cantinho só seu para organizar a vida.',
     'Ele se chama Ronrom, porque tudo fica mais leve com um ronronar por perto. Tem tema da Phoebe, do Peleguinho e um em homenagem ao Manteguinha, do jeitinho que ele merecia.',
     'Espero que ele te ajude nos dias corridos e te lembre de comemorar cada passo, até os pequenininhos.',
   ],
