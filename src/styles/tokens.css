@@ -1,0 +1,75 @@
+/* Paletas (temas com o nome dos gatos) e base tipográfica, usadas em todas as páginas. */
+:root{
+  --bg:#F8F5EE; --surface:#FFFDF8; --surface-2:#F2EEE4; --line:#E6E0D2; --line-2:#EEE9DE;
+  --ink:#1E3328; --ink-2:#5B6359; --ink-3:#9AA095;
+  --sidebar:#1E3A2D; --sidebar-ink:#E3ECE4; --sidebar-mute:#8DA797; --sidebar-active:#2D5242; --sidebar-dot:#F0D27C;
+  --yellow:#F8EBC0; --yellow-ink:#765C14; --yellow-deep:#EBCB72;
+  --pink:#F5E0DC; --pink-ink:#88404A; --pink-deep:#E2AFA8;
+  --green:#DFEAD7; --green-ink:#2C5839; --green-deep:#9FC28F;
+  --blue:#DCE6EF; --blue-ink:#2D4E6C; --blue-deep:#97B6D0;
+  --accent:#1E3A2D; --accent-ink:#FFFDF8;
+  --radius:20px; --radius-md:14px; --radius-sm:9px;
+  --font-d:'Instrument Serif', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-b:'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+/* Phoebe: siamesa, creme e chocolate, olhos azuis */
+:root[data-palette="phoebe"]{
+  --bg:#F8F3EC; --surface:#FFFCF8; --surface-2:#F1E9DF; --line:#E8DDD0; --line-2:#F0E8DE;
+  --ink:#3A2A22; --ink-2:#6E5F56; --ink-3:#A8998F;
+  --sidebar:#3B2A22; --sidebar-ink:#F5EDE6; --sidebar-mute:#B39C8E; --sidebar-active:#55402F; --sidebar-dot:#9CC6EC;
+  --yellow:#F4E7D2; --yellow-ink:#7A5A33; --yellow-deep:#DDBF94;
+  --pink:#F3E0DA; --pink-ink:#87473E; --pink-deep:#DDAFA5;
+  --green:#E6E7D8; --green-ink:#4E5A36; --green-deep:#B6BE95;
+  --blue:#DCE9F5; --blue-ink:#2F5878; --blue-deep:#9CC6EC;
+  --accent:#3B2A22;
+}
+/* Peleguinho: cinza rajadinho */
+:root[data-palette="peleguinho"]{
+  --bg:#F3F3F1; --surface:#FCFCFA; --surface-2:#ECECE8; --line:#DFDFDA; --line-2:#E8E8E4;
+  --ink:#2E3236; --ink-2:#62676C; --ink-3:#9DA1A5;
+  --sidebar:#3B4045; --sidebar-ink:#EEF0F1; --sidebar-mute:#9EA5AB; --sidebar-active:#50575E; --sidebar-dot:#D8CF9A;
+  --yellow:#EFEBDA; --yellow-ink:#6B6233; --yellow-deep:#D3C88F;
+  --pink:#EDE3E1; --pink-ink:#7D4E4B; --pink-deep:#D2AEA9;
+  --green:#E2E8DE; --green-ink:#40583F; --green-deep:#A9BEA3;
+  --blue:#E0E6EC; --blue-ink:#3B5268; --blue-deep:#A7B9CB;
+  --accent:#3B4045;
+}
+:root[data-palette="peleguinho"] .sidebar{background-image:repeating-linear-gradient(118deg,rgba(255,255,255,.035) 0 16px,transparent 16px 34px)}
+:root[data-palette="noite"], :root[data-palette="auto"][data-theme="dark"]{
+  --bg:#131A22; --surface:#1A2330; --surface-2:#212C3A; --line:#2A3646; --line-2:#243040;
+  --ink:#E7ECF2; --ink-2:#A7B2C0; --ink-3:#6E7C8D;
+  --sidebar:#0D131A; --sidebar-ink:#DDE5EE; --sidebar-mute:#74859A; --sidebar-active:#1F2D3D; --sidebar-dot:#9DBAD6;
+  --yellow:#36321F; --yellow-ink:#EBD898; --yellow-deep:#8F7F45;
+  --pink:#3A2730; --pink-ink:#F0BEC6; --pink-deep:#93606C;
+  --green:#21352B; --green-ink:#B5DCB9; --green-deep:#5C8E68;
+  --blue:#1F3249; --blue-ink:#B9D3EE; --blue-deep:#5A82AA;
+  --accent:#A9C6E3; --accent-ink:#131A22;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark){
+  :root[data-palette="auto"]:not([data-theme="light"]){
+    --bg:#131A22; --surface:#1A2330; --surface-2:#212C3A; --line:#2A3646; --line-2:#243040;
+    --ink:#E7ECF2; --ink-2:#A7B2C0; --ink-3:#6E7C8D;
+    --sidebar:#0D131A; --sidebar-ink:#DDE5EE; --sidebar-mute:#74859A; --sidebar-active:#1F2D3D; --sidebar-dot:#9DBAD6;
+    --yellow:#36321F; --yellow-ink:#EBD898; --yellow-deep:#8F7F45;
+    --pink:#3A2730; --pink-ink:#F0BEC6; --pink-deep:#93606C;
+    --green:#21352B; --green-ink:#B5DCB9; --green-deep:#5C8E68;
+    --blue:#1F3249; --blue-ink:#B9D3EE; --blue-deep:#5A82AA;
+    --accent:#A9C6E3; --accent-ink:#131A22;
+    color-scheme: dark;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-b);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{min-height:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--blue-deep);outline-offset:2px;border-radius:6px}
+img,svg{max-width:100%}
+
+[hidden]{display:none!important}

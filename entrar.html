@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR" data-palette="manteguinha">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Entrar · Ronrom</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1\&family=Figtree:wght@400;500;600;700\&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+<a class="auth-back" href="/">← Voltar</a>
+<main class="auth-wrap">
+  <div class="auth-cats" aria-hidden="true"><span data-cat="siames"></span><span data-cat="cinza"></span></div>
+  <section class="auth-card">
+    <h1>Ronrom</h1>
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="entrar" aria-selected="true">Entrar</button>
+      <button role="tab" data-tab="convite" aria-selected="false">Tenho um convite</button>
+    </div>
+    <p class="msg" id="msg" role="alert" hidden></p>
+
+    <div data-panel="entrar">
+      <button class="btn-google" data-google hidden></button>
+      <div class="or" data-google-or hidden><span>ou</span></div>
+      <form id="f-login" class="fields">
+        <label>E-mail<input name="email" type="email" autocomplete="email" required></label>
+        <label>Senha<input name="password" type="password" autocomplete="current-password" required></label>
+        <button class="btn" type="submit">Entrar</button>
+      </form>
+      <p class="hint">Primeira vez aqui? Use a aba <b>Tenho um convite</b>.</p>
+    </div>
+
+    <div data-panel="convite" hidden>
+      <form id="f-code" class="fields">
+        <label>Código de convite<input name="code" placeholder="MIAU-XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false" required></label>
+        <button class="btn" type="submit">Validar convite</button>
+      </form>
+      <div id="signup" hidden>
+        <p class="ok">Convite aceito! Agora crie sua conta.</p>
+        <button class="btn-google" data-google hidden></button>
+        <div class="or" data-google-or hidden><span>ou</span></div>
+        <form id="f-signup" class="fields">
+          <label>Seu nome<input name="name" autocomplete="given-name" required></label>
+          <label>E-mail<input name="email" type="email" autocomplete="email" required></label>
+          <label>Senha<input name="password" type="password" autocomplete="new-password" minlength="8" required><small>Pelo menos 8 caracteres.</small></label>
+          <button class="btn" type="submit">Criar minha conta</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<script type="module" src="/src/entrar.js"></script>
+</body>
+</html>

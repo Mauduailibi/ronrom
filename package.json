@@ -1,0 +1,39 @@
+{
+  "name": "ronrom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ronrom: planner pessoal da Julia, com gatos por perto",
+  "type": "module",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c magenta,green \"pnpm dev:api\" \"pnpm dev:web\"",
+    "dev:web": "vite",
+    "dev:api": "tsx watch --env-file=.env server/dev.ts",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx --env-file=.env scripts/migrate.ts",
+    "code:new": "tsx --env-file=.env scripts/codes.ts new",
+    "code:list": "tsx --env-file=.env scripts/codes.ts list"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.3",
+    "better-auth": "^1.7.7",
+    "drizzle-orm": "^0.45.3",
+    "hono": "^4.13.13",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@types/pg": "^8.23.1",
+    "concurrently": "^10.0.5",
+    "drizzle-kit": "^0.31.11",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2"
+  }
+}
