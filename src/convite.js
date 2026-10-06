@@ -12,8 +12,7 @@ const CARTA = {
   para: 'Julia',
   de: 'Mauricio',
   paragrafos: [
-    'Fiz um cantinho só seu para organizar a vida.',
-    'Ele se chama Ronrom, porque tudo fica mais leve com um ronronar por perto. Tem tema da Phoebe, do Peleguinho e um em homenagem ao Manteguinha, do jeitinho que ele merecia.',
+    'Fiz um cantinho só seu para organizar a vida. Ele se chama Ronrom, porque tudo fica mais leve com um ronronar por perto. Tem tema da Phoebe, do Peleguinho e um em homenagem ao Manteguinha, do jeitinho que ele merecia.',
     'Espero que ele te ajude nos dias corridos e te lembre de comemorar cada passo, até os pequenininhos.',
   ],
   ps: 'P.S.: a Phoebe e o Peleguinho revisaram tudo. A Phoebe pediu para avisar que deitou em cima do teclado duas vezes.',
