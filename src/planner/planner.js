@@ -119,8 +119,16 @@ function taskRow(t, opt={}){
   ${opt.compact ? '' : `${t.priority==='Alta' && !t.done ? tag('Alta','pink') : ''}<button class="icon-btn sm" data-a="edit-task" data-id="${t.id}" aria-label="Editar tarefa">${I.edit}</button><button class="icon-btn sm" data-a="del-task" data-id="${t.id}" aria-label="Excluir tarefa">${I.trash}</button>`}</li>`;
 }
 
-const classesOn = i => S.classes.filter(c => (c.days || []).includes(i)).sort((a, b) => (a.start || '').localeCompare(b.start || ''));
-const classChip = c => `<span class="class-chip"><b>${esc(c.name)}</b>${esc(c.start || '')}${c.end ? ' às ' + esc(c.end) : ''}${c.place ? ', ' + esc(c.place) : ''}</span>`;
+/** Horário da aula num dia da semana: o do próprio dia, se houver, senão o geral. */
+const classSlot = (c, i) => c.times?.[i] || {start:c.start || '', end:c.end || ''};
+const slotText = t => `${esc(t.start || '')}${t.end ? ' às ' + esc(t.end) : ''}`;
+const classesOn = i => S.classes.filter(c => (c.days || []).includes(i)).map(c => ({...c, ...classSlot(c, i)})).sort((a, b) => (a.start || '').localeCompare(b.start || ''));
+function classTimes(c){
+  const slots = c.days.map(i => [i, classSlot(c, i)]);
+  if (slots.every(([, t]) => t.start === slots[0][1].start && t.end === slots[0][1].end)) return slotText(slots[0]?.[1] || {});
+  return slots.map(([i, t]) => `${DOW[i]} ${slotText(t)}`).join('<br>');
+}
+const classChip = c => `<span class="class-chip"><b>${esc(c.name)}</b>${slotText(c)}${c.place ? ', ' + esc(c.place) : ''}</span>`;
 function tripChip(){
   const t = S.trip, p = listPct(t.checklist); let when = 'defina a data de ida';
   if (t.start){ const dd = Math.round((parse(t.start) - startDay()) / 864e5); when = dd > 1 ? `faltam ${dd} dias` : dd === 1 ? 'falta 1 dia' : dd === 0 ? 'é hoje' : 'em andamento'; }
@@ -295,7 +303,7 @@ function pageWeek(){
   </section>
   <section class="block">
     <div class="block-head"><div><h2>Grade de aulas</h2><p>Disciplinas e reuniões fixas aparecem sozinhas em cada dia e na agenda de hoje.</p></div><button class="btn" data-a="new-class">${I.plus}Nova aula</button></div>
-    ${S.classes.length ? `<div class="tbl-wrap"><table><thead><tr><th>Disciplina ou compromisso</th><th>Dias</th><th>Horário</th><th>Local</th><th></th></tr></thead><tbody>${S.classes.slice().sort((a,b) => Math.min(...a.days) - Math.min(...b.days) || (a.start||'').localeCompare(b.start||'')).map(c => `<tr><td><b>${esc(c.name)}</b></td><td class="small">${c.days.map(x => DOW[x]).join(', ')}</td><td class="small" style="white-space:nowrap">${esc(c.start||'')}${c.end ? ' às ' + esc(c.end) : ''}</td><td class="small muted">${esc(c.place||'')}</td><td style="white-space:nowrap;text-align:right"><button class="icon-btn" data-a="edit-class" data-id="${c.id}" aria-label="Editar aula">${I.edit}</button><button class="icon-btn" data-a="del-class" data-id="${c.id}" aria-label="Excluir aula">${I.trash}</button></td></tr>`).join('')}</tbody></table></div>` : `<div class="goals-grid">${empty('Nenhuma aula cadastrada', 'Cadastre suas disciplinas e as reuniões fixas da pesquisa.')}</div>`}
+    ${S.classes.length ? `<div class="tbl-wrap"><table><thead><tr><th>Disciplina ou compromisso</th><th>Dias</th><th>Horário</th><th>Local</th><th></th></tr></thead><tbody>${S.classes.slice().sort((a,b) => Math.min(...a.days) - Math.min(...b.days) || (classSlot(a, Math.min(...a.days)).start||'').localeCompare(classSlot(b, Math.min(...b.days)).start||'')).map(c => `<tr><td><b>${esc(c.name)}</b></td><td class="small">${c.days.map(x => DOW[x]).join(', ')}</td><td class="small" style="white-space:nowrap">${classTimes(c)}</td><td class="small muted">${esc(c.place||'')}</td><td style="white-space:nowrap;text-align:right"><button class="icon-btn" data-a="edit-class" data-id="${c.id}" aria-label="Editar aula">${I.edit}</button><button class="icon-btn" data-a="del-class" data-id="${c.id}" aria-label="Excluir aula">${I.trash}</button></td></tr>`).join('')}</tbody></table></div>` : `<div class="goals-grid">${empty('Nenhuma aula cadastrada', 'Cadastre suas disciplinas e as reuniões fixas da pesquisa.')}</div>`}
   </section>
   <section class="block grid-2">
     <div class="card c-blue"><div class="card-title"><h3>Intenção da semana</h3></div><textarea class="soft-area" placeholder="Como você quer viver esta semana?" data-bind="weeks.${wk}.intention">${esc(W.intention)}</textarea></div>
@@ -573,6 +581,7 @@ function openForm(title, fields, onSave, saveLabel='Salvar'){
     const cls = x.full ? 'full' : '';
     if (x.type === 'textarea') return `<label class="${cls}">${x.label}<textarea class="area" name="${x.name}" placeholder="${esc(x.ph||'')}">${esc(x.value||'')}</textarea></label>`;
     if (x.type === 'days') return `<div class="full"><div style="font-size:13px;color:var(--ink-2);font-weight:500;margin-bottom:6px">Dias da semana</div><div class="days-pick">${DOW.map((d, i) => `<label><input type="checkbox" class="ck" name="d${i}" ${(x.value || []).includes(i) ? 'checked' : ''}>${d}</label>`).join('')}</div></div>`;
+    if (x.type === 'schedule') return `<div class="full"><div style="font-size:13px;color:var(--ink-2);font-weight:500;margin-bottom:6px">Dias e horários</div><div class="sched">${DOW.map((d, i) => { const on = (x.value.days || []).includes(i), t = on ? classSlot(x.value, i) : {start:x.value.start || '08:00', end:x.value.end || '10:00'}; return `<div class="sched-row"><label><input type="checkbox" class="ck" name="d${i}" ${on ? 'checked' : ''}>${d}</label><input class="inp" type="time" name="s${i}" value="${esc(t.start)}" aria-label="Início ${DOW_FULL[i]}"><span>às</span><input class="inp" type="time" name="e${i}" value="${esc(t.end)}" aria-label="Fim ${DOW_FULL[i]}"></div>`; }).join('')}</div></div>`;
     if (x.type === 'select') return `<label class="${cls}">${x.label}<select class="sel" name="${x.name}">${opts(x.options, x.value)}</select></label>`;
     return `<label class="${cls}">${x.label}<input class="inp" type="${x.type||'text'}" name="${x.name}" value="${esc(x.value ?? '')}" placeholder="${esc(x.ph||'')}" ${x.min!=null?`min="${x.min}"`:''} ${x.max!=null?`max="${x.max}"`:''} ${x.list?`list="${x.list}"`:''}></label>`;
   }).join('');
@@ -629,15 +638,14 @@ const msForm = (m = {}) => [
 ];
 const classForm = (c = {}) => [
   {name:'name', label:'Disciplina ou compromisso', value:c.name, full:true, ph:'Ex.: Engenharia de Reservatórios'},
-  {name:'start', label:'Início', type:'time', value:c.start || '08:00'},
-  {name:'end', label:'Fim', type:'time', value:c.end || '10:00'},
   {name:'place', label:'Local', value:c.place, full:true, ph:'Sala, prédio ou link'},
-  {name:'days', type:'days', value:c.days || []}
+  {type:'schedule', value:c}
 ];
 function saveClass(c, v){
   const days = [0,1,2,3,4,5,6].filter(i => v['d' + i]);
   if (!v.name || !days.length){ toast('Informe o nome e pelo menos um dia'); return false; }
-  const o = {name:v.name, start:v.start, end:v.end, place:v.place, days};
+  const times = Object.fromEntries(days.map(i => [i, {start:v['s' + i], end:v['e' + i]}]));
+  const o = {name:v.name, start:times[days[0]].start, end:times[days[0]].end, place:v.place, days, times};
   if (c) Object.assign(c, o); else S.classes.push({id:uid(), ...o});
   toast(c ? 'Aula atualizada' : 'Aula adicionada');
 }
